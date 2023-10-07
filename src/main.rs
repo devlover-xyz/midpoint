@@ -25,9 +25,12 @@ fn main() {
     while y > x {
         x += 1;
         if d <= 0 {
+            // P1 = P0 + 2Xk+1 +1
             d = d + 2 * x as i32 + 1;
         } else {
             y -= 1;
+
+            // P4 = P3 + 2Xk+1 +1 - 2Yk+1
             d = d + 2 * (x as i32 - y as i32) + 1;
         }
         plot_points(&mut img, center_x, center_y, x, y, Rgb([255, 255, 0]));
