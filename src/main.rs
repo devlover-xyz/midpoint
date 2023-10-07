@@ -4,31 +4,31 @@ extern crate image;
 
 fn main() {
     // Define the parameters of the circle
-    let center_x = 200;
-    let center_y = 200;
-    let radius = 100;
+    let center_x: u32 = 200;
+    let center_y: u32 = 200;
+    let radius: u32 = 100;
 
     // Create a blank image with a white background
-    let width = 400;
-    let height = 400;
+    let width: u32 = 400;
+    let height: u32 = 400;
     let mut img = ImageBuffer::new(width, height);
 
     // Calculate the initial point
-    let mut x = radius;
-    let mut y = 0;
-    let mut d = 1 - radius as i32; // Initial decision parameter
+    let mut x: u32 = 0;
+    let mut y: u32 = radius;
+    let mut d: i32 = 1 - radius as i32; // Initial decision parameter
 
     // Plot the initial points (8-way symmetry)
     plot_points(&mut img, center_x, center_y, x, y);
 
     // Midpoint algorithm
-    while x > y {
-        y += 1;
+    while y > x {
+        x += 1;
         if d <= 0 {
-            d = d + 2 * y as i32 + 1;
+            d = d + 2 * x as i32 + 1;
         } else {
-            x -= 1;
-            d = d + 2 * (y as i32 - x as i32) + 1;
+            y -= 1;
+            d = d + 2 * (x as i32 - y as i32) + 1;
         }
         plot_points(&mut img, center_x, center_y, x, y);
     }
