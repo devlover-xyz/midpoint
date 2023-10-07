@@ -18,8 +18,8 @@ fn main() {
     let mut y: u32 = radius;
     let mut d: i32 = 1 - radius as i32; // Initial decision parameter
 
-    // Plot the initial points (8-way symmetry)
-    plot_points(&mut img, center_x, center_y, x, y);
+    // Plot the initial points (8-way symmetry) with yellow color
+    plot_points(&mut img, center_x, center_y, x, y, Rgb([255, 255, 0]));
 
     // Midpoint algorithm
     while y > x {
@@ -30,21 +30,21 @@ fn main() {
             y -= 1;
             d = d + 2 * (x as i32 - y as i32) + 1;
         }
-        plot_points(&mut img, center_x, center_y, x, y);
+        plot_points(&mut img, center_x, center_y, x, y, Rgb([255, 255, 0]));
     }
 
     // Save the image to a file
     img.save("circle.png").unwrap();
 }
 
-// Function to plot points with 8-way symmetry
-fn plot_points(img: &mut ImageBuffer<Rgb<u8>, Vec<u8>>, xc: u32, yc: u32, x: u32, y: u32) {
-    img.put_pixel(xc + x, yc + y, Rgb([0, 0, 0])); // Octant 1
-    img.put_pixel(xc - x, yc + y, Rgb([0, 0, 0])); // Octant 4
-    img.put_pixel(xc + x, yc - y, Rgb([0, 0, 0])); // Octant 5
-    img.put_pixel(xc - x, yc - y, Rgb([0, 0, 0])); // Octant 8
-    img.put_pixel(xc + y, yc + x, Rgb([0, 0, 0])); // Octant 2
-    img.put_pixel(xc - y, yc + x, Rgb([0, 0, 0])); // Octant 3
-    img.put_pixel(xc + y, yc - x, Rgb([0, 0, 0])); // Octant 6
-    img.put_pixel(xc - y, yc - x, Rgb([0, 0, 0])); // Octant 7
+// Function to plot points with 8-way symmetry and a specified color
+fn plot_points(img: &mut ImageBuffer<Rgb<u8>, Vec<u8>>, xc: u32, yc: u32, x: u32, y: u32, color: Rgb<u8>) {
+    img.put_pixel(xc + x, yc + y, color); // Octant 1
+    img.put_pixel(xc - x, yc + y, color); // Octant 4
+    img.put_pixel(xc + x, yc - y, color); // Octant 5
+    img.put_pixel(xc - x, yc - y, color); // Octant 8
+    img.put_pixel(xc + y, yc + x, color); // Octant 2
+    img.put_pixel(xc - y, yc + x, color); // Octant 3
+    img.put_pixel(xc + y, yc - x, color); // Octant 6
+    img.put_pixel(xc - y, yc - x, color); // Octant 7
 }
